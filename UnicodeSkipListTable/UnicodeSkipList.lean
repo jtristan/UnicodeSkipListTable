@@ -12,6 +12,9 @@ open Std System IO FilePath FS
 
 namespace Char.UnicodeSkipList
 
+variable {T : Type}
+variable [UnicodeData T]
+
 /-
 The following code creates the unicode skip list data structure for
 a given property. To understand it at a high-level, we provide an
@@ -30,13 +33,13 @@ will reject the table was incorrectly created.
 /-
 Return the list of all contiguous ranges of codepoints that satisfy the property
 -/
-def explicitRanges (ucd : Array UnicodeData) (property : UnicodeData → Bool) : List Range := Id.run do
+def explicitRanges (ucd : Array T) (property : T → Bool) : List Range := Id.run do
   let mut rangeOpt : Option Range := none
   let mut ranges := []
   -- Assumes that codepoints in `ucd` appear in increasing order
   -- which should be true if ucd was read from the Unicode database
   for datapoint in ucd do
-    let code := datapoint.codepoint
+    let code := UnicodeData.codepoint datapoint
     let prop := property datapoint
     match rangeOpt, prop with
     | some r, true =>
@@ -121,7 +124,7 @@ def largeOffsetEncoding (indices prefixSums : List Nat) : Array UInt32 :=
   let prefixSums := prefixSums ++ [Char.max.val.toNat + 1]
   ((indices.zip prefixSums).map fun (idx, pf) => (idx + pf).toUInt32).toArray
 
-def calculateTable (ucd : Array UnicodeData) (property : UnicodeData → Bool) : UnicodePropertyTable :=
+def calculateTable (ucd : Array T) (property : T → Bool) : UnicodePropertyTable :=
   let ranges := explicitRanges ucd property
   let gaps := mergeRanges ranges
   let offsets := offsets gaps

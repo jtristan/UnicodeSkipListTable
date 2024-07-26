@@ -5,8 +5,11 @@ Authors: Jean-Baptiste Tristan
 -/
 import UnicodeSkipListTable.Unicode
 
-def referenceTable (ucd : Array UnicodeData) (property : UnicodeData → Bool) : Array Nat :=
-  (ucd.filter property).map fun ucdc => ucdc.codepoint
+variable {T : Type}
+variable [UnicodeData T]
+
+def referenceTable (ucd : Array T) (property : T → Bool) : Array Nat :=
+  (ucd.filter property).map UnicodeData.codepoint
 
 def referenceSearch (table : Array Nat) (c : Char) : Bool :=
   table.contains c.toNat

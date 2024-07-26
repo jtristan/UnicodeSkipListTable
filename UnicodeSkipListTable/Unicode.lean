@@ -6,11 +6,6 @@ Authors: Jean-Baptiste Tristan
 
 open System IO
 
-class UnicodeData where
-  codepointRaw : String
-  codepoint : Nat
-  deriving Repr, DecidableEq, Inhabited, Nonempty
-
-def printUnicodeData (ucd : Array UnicodeData) : IO Unit := do
-  for entry in ucd do
-    println <| reprStr entry
+class UnicodeData (T : Type) where
+  codepointRaw : T → String
+  codepoint : T → Nat
