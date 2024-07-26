@@ -6,6 +6,7 @@ Authors: Jean-Baptiste Tristan
 import UnicodeSkipListTable.Char
 import UnicodeSkipListTable.String
 import UnicodeSkipListTable.FetchDatabase
-import UnicodeSkipListTable.UnicodeSkipList
 import UnicodeSkipListTable.Reference
 import UnicodeSkipListTable.Unicode
+import UnicodeSkipListTable.UnicodeSkipListCreate
+import UnicodeSkipListTable.UnicodeSkipListSearch
