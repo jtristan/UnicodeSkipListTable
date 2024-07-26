@@ -6,7 +6,7 @@ Authors: Jean-Baptiste Tristan
 
 open System IO
 
-structure UnicodeData where
+class UnicodeData where
   codepointRaw : String
   codepoint : Nat
   deriving Repr, DecidableEq, Inhabited, Nonempty
