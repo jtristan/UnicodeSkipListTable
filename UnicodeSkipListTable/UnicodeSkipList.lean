@@ -133,9 +133,7 @@ def calculateTable (ucd : Array T) (property : T → Bool) : UnicodePropertyTabl
   let runs := largeOffsetEncoding indices prefixSums
   { runs, offsets }
 
-def writeTable (property : String) (table : UnicodePropertyTable) : IO Unit := do
-  let workingDir : FilePath ← currentDir
-  let f : FilePath := join workingDir <| System.mkFilePath ["..", "..", "src", "Init", "Data", "Char", "Tables.lean"]
+def writeTable (f : FilePath) (property : String) (table : UnicodePropertyTable) : IO Unit := do
   let mut content := ""
   content := content ++ "/-\n"
   content := content ++ "Copyright (c) 2024 Amazon.com, Inc. or its affiliates. All Rights Reserved.\n"

@@ -20,9 +20,7 @@ def download  (url : String) (file : FilePath) : IO Output := do
     output { cmd := "curl", args := #["-s", "-S", "-f", "-o", file.toString, "-L", url] }
   else pure { exitCode := 0, stdout := "", stderr := "" }
 
-def writeUnicodeVersion : IO Unit := do
-  let workingDir : FilePath ← currentDir
-  let f : FilePath := join workingDir <| System.mkFilePath ["..", "..", "src", "Init", "Data", "Char", "UnicodeVersion.lean"]
+def writeUnicodeVersion (f : FilePath) : IO Unit := do
   let mut content := ""
   content := content ++ "/-\n"
   content := content ++ "Copyright (c) 2024 Amazon.com, Inc. or its affiliates. All Rights Reserved.\n"
